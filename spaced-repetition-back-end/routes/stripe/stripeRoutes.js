@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
       .create({
         email: req.body.purchase.email,
         source: req.body.purchase.token.id,
-        plan: "plan_DynouB6dXG4IcA"
+        plan: "plan_E9Envwurdn8Ek1"
       })
     const user = await users.freeToPaid(user_id, customer.id)
     return res.status(200).json(user[0]);
