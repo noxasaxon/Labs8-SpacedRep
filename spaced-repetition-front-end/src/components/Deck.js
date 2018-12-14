@@ -214,10 +214,12 @@ const DeckHeader = styled.div`
 const Title = styled.div`
   font-size: 25px;
   /* letter-spacing: 1px; */
+  
 `;
 
 const NumCards = styled.div`
   color: lightgrey;
+  padding-top: 1px;
 `;
 
 const DeckTop = styled.div`
