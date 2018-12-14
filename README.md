@@ -2,7 +2,7 @@
 
 ## Links
 
-- Deployed site: https://spaced-repetition.netlify.com/
+- Deployed site: https://spacereps.netlify.com/
 
 - Wireframes: https://balsamiq.cloud/snv27r3/p2yk660/r7DA1
 
