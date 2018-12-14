@@ -18,18 +18,34 @@ const LandingPage = ({ auth }) => {
           <CTAText>
             <h1>Focus on what matters to you.</h1>
             <h1>Let us take care of the when.</h1>
-            <p>Our application is built on the scientifically proven principles of spaced repetition to help you study more efficiently and less often. We believe in providing a seamless and intuitive study session from beginning to end, whether you're adding new material or reviewing previous.</p>
-            <p>Studying with us is as easy as creating your own digital flashcards and decks. We take care of the rest! Are you a programmer? Check out our code snippet integration!</p>
+            <p>
+              Our application is built on the scientifically proven principles
+              of spaced repetition to help you study more efficiently and less
+              often. We believe in providing a seamless and intuitive study
+              session from beginning to end, whether you're adding new material
+              or reviewing previous.
+            </p>
+            <p>
+              Studying with us is as easy as creating your own digital
+              flashcards and decks. We take care of the rest! Are you a
+              programmer? Check out our code snippet integration!
+            </p>
           </CTAText>
           <CTAButtonsGroup>
-            {auth.isAuthenticated() ? <CTABtn>Go To Dashboard</CTABtn> : <CTABtn onClick={login}>Sign up</CTABtn>}
-            <CTABtn learn href="#why">Learn more</CTABtn>
+            {auth.isAuthenticated() ? (
+              <CTABtn>Go To Dashboard</CTABtn>
+            ) : (
+              <CTABtn onClick={login}>Sign up</CTABtn>
+            )}
+            <CTABtn learn href="#why">
+              Learn more
+            </CTABtn>
           </CTAButtonsGroup>
         </JumboTron>
         <HeaderFeaturettes />
-        <ArrowContainer>
+        {/* <ArrowContainer>
           <Arrow />
-        </ArrowContainer>
+        </ArrowContainer> */}
       </Header>
       <Body>
         {/* <WhySpacedReps /> */}
@@ -49,7 +65,7 @@ export default LandingPage;
 const WrapperContainer = styled.div`
 height: 100%;
 padding-top: 55px;
-// margin-top: ${props => props.isLoggedIn ? '90px' : '55px'};
+// margin-top: ${props => (props.isLoggedIn ? '90px' : '55px')};
 
 // @media (max-width: 540px) {
 //   h1 {
@@ -59,13 +75,13 @@ padding-top: 55px;
 `;
 
 const Header = styled.div`
-height: 100%;
+  height: 100%;
 `;
 
 const JumboTron = styled.div`
-height: 60%;
-width: 100%;
-padding: 5% 8%;
+  height: 60%;
+  width: 100%;
+  padding: 5% 8%;
   background-size: cover;
   background-position: center bottom;
   letter-spacing: 1px;
@@ -77,7 +93,7 @@ padding: 5% 8%;
   &::before {
     background-image: url(${headerImg});
     background-size: cover;
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 0;
@@ -86,17 +102,17 @@ padding: 5% 8%;
     height: 60%;
     z-index: -2;
     opacity: 0.2;
-    }
+  }
 `;
 
 const Body = styled.div`
-height: 100%;
+  height: 100%;
   margin-top: 55px;
   position: relative;
-  flex:1;
-  overflow:hidden;
+  flex: 1;
+  overflow: hidden;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling:touch;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const CTAText = styled.div`
@@ -109,11 +125,11 @@ const CTAText = styled.div`
   @media (max-width: 600px) {
     justify-content: space-around;
   }
-  
+
   @media (max-width: 950px) {
     height: 75%;
   }
-  
+
   @media (max-width: 900px) {
     font-size: 16px;
   }
@@ -122,56 +138,56 @@ const CTAText = styled.div`
     height: 85%;
   }
 
-h1 {
-  font-size: 35px;
+  h1 {
+    font-size: 35px;
 
-  @media( max-width: 700px) {
-    font-size: 32px;
-  }
-  
-  @media( max-width: 650px) {
-    font-size: 30px;
-  }
-  
-  @media( max-width: 600px) {
-    font-size: 28px;
-  }
-  
-  @media( max-width: 500px) {
-    font-size: 20px;
-    font-weight: bold;
-  }
-}
+    @media (max-width: 700px) {
+      font-size: 32px;
+    }
 
-p {
-  line-height: 1.2;
-  
-  @media( max-width: 650px) {
-    font-size: 14px;
+    @media (max-width: 650px) {
+      font-size: 30px;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 28px;
+    }
+
+    @media (max-width: 500px) {
+      font-size: 20px;
+      font-weight: bold;
+    }
   }
-}
+
+  p {
+    line-height: 1.2;
+
+    @media (max-width: 650px) {
+      font-size: 14px;
+    }
+  }
 `;
 
 const CTAButtonsGroup = styled.div`
-height: 30%;
-text-align: center;
-margin: 0 auto;
-padding-top: 3%;
+  height: 30%;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 3%;
 
-@media (max-width: 500px) {
-  height: 15%;
-}
+  @media (max-width: 500px) {
+    height: 15%;
+  }
 `;
 
 const CTABtn = styled.button`
 ${props => props.theme.dark.buttons.base}
 font-size: 18px;
 height: 50px;
-margin-right: ${props => props.learn ? 0 : '20px'};
-color: ${props => props.learn ? 'white' : '#d6d6d6'};
-background-color: ${props => props.learn ? 'lightseagreen' : '#2f3d47'}
-border-color: ${props => props.learn ? '#707070' : '#2f3d47'};
-// background: ${props => props.learn ? null : 'none'};
+margin-right: ${props => (props.learn ? 0 : '20px')};
+color: ${props => (props.learn ? 'white' : '#d6d6d6')};
+background-color: ${props => (props.learn ? 'lightseagreen' : '#2f3d47')}
+border-color: ${props => (props.learn ? '#707070' : '#2f3d47')};
+// background: ${props => (props.learn ? null : 'none')};
 width: 250px;
 
 @media( max-width: 700px) {
@@ -191,20 +207,20 @@ width: 250px;
 `;
 
 const ArrowContainer = styled.div`
-position: absolute;
-top: 95%;
-left: 50%;
-transform: translate(-50%, -50%);
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const BackToTopContainer = styled.div`
-position: absolute;
-top: 95%;
-right: 5%;
+  position: absolute;
+  top: 95%;
+  right: 5%;
 
-a {
-  font-size: 14px;
-}
+  a {
+    font-size: 14px;
+  }
 `;
 
 const animate = keyframes`
