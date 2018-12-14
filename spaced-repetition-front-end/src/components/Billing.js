@@ -41,48 +41,48 @@ const Billing = (props) => {
               </Item>
               <Item>
                 <i className="fas fa-check fs-2x" />
-                3 Decks/150 Cards
+3 Decks/150 Cards
               </Item>
             </Card>
           </FreeContainer>
         ) : (
-            <UnContainer>
-              <Header>
-                <Tier>Unlimited</Tier>
-                <Price>
-                  <span>9</span>
-                  .99/mo.
+          <UnContainer>
+            <Header>
+              <Tier>Unlimited</Tier>
+              <Price>
+                <span>9</span>
+                .99/mo.
               </Price>
-              </Header>
-              <Card>
-                <Item>
-                  <i className="fas fa-check fs-2x" />
-                  Code Snippets
+            </Header>
+            <Card>
+              <Item>
+                <i className="fas fa-check fs-2x" />
+                Code Snippets
               </Item>
-                <Item>
-                  <i className="fas fa-check fs-2x" />
-                  Built-in SRS
+              <Item>
+                <i className="fas fa-check fs-2x" />
+                Built-in SRS
               </Item>
-                <Item>
-                  <i className="fas fa-check fs-2x" />
-                  Team Support
+              <Item>
+                <i className="fas fa-check fs-2x" />
+                Team Support
               </Item>
-                <Item>
-                  <i className="fas fa-check fs-2x" />
-                  Deck Sharing
+              <Item>
+                <i className="fas fa-check fs-2x" />
+                Deck Sharing
               </Item>
-                <Item>
-                  <i className="fas fa-check fs-2x" />
-                  Training Mode
+              <Item>
+                <i className="fas fa-check fs-2x" />
+                Training Mode
               </Item>
-                <Item>
-                  <i className="fas fa-check fs-2x" />
-                  {' '}
-                  Unlimited Usage
+              <Item>
+                <i className="fas fa-check fs-2x" />
+                {' '}
+Unlimited Usage
               </Item>
-              </Card>
-            </UnContainer>
-          )}
+            </Card>
+          </UnContainer>
+        )}
         <Elements>
           <CheckoutForm handleUpdateTier={handleUpdateTier} profile={profile} />
         </Elements>
@@ -100,7 +100,6 @@ const Container = styled.div`
   width: 50%;
   flex-direction: column;
   padding-left: 20px;
-
   @media (max-width: 500px) {
     width: 100%;
     padding: 30px 0 0 0;
@@ -122,6 +121,8 @@ const FreeContainer = styled.div`
 `;
 
 const UnContainer = styled(FreeContainer)`
+  min-height: 140px;
+  min-width: 80px;
   margin-bottom: 20px;
   width: 40%;
   height: 80%;
@@ -136,7 +137,6 @@ const Header = styled.div`
     font-size: 50px;
 
     &::before {
-      content: '$';
       position: absolute;
       font-size: 15px;
       margin-left: -10px;
@@ -214,7 +214,6 @@ const Price = styled.p`
     font-size: 50px;
 
     &::before {
-      content: '$';
       position: absolute;
       font-size: 15px;
       margin-left: -10px;

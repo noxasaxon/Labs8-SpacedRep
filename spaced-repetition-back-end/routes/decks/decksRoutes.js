@@ -109,8 +109,12 @@ router.get('/:id', (req, res) => {
     .then(decks => {
       if (decks[0]) {
         //deck exists, retrieve and show to user to confirm if they want to import deck
-        console.log('formatted', formatDecks(decks));
-        res.status(200).json(formatDecks(decks));
+        if (!decks[0].public) {
+          res.status(404).json({ message: 'This deck is private' });
+        } else {
+          console.log('formatted', formatDecks(decks));
+          res.status(200).json(formatDecks(decks));
+        }
       } else {
         res.status(404).json({ message: 'Deck does not exist or is private' });
       }

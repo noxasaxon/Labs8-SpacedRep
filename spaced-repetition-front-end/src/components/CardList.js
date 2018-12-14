@@ -9,7 +9,7 @@ import CardListTools from './CardListTools';
 // import CardInputs from './CardInputs';
 import AddCard from './AddCard';
 
-//FIX: if 1 or 2 cards, the card's height is way too much and looks terrible
+// FIX: if 1 or 2 cards, the card's height is way too much and looks terrible
 class CardList extends Component {
   state = {
     addNewCard: false,
@@ -35,7 +35,7 @@ class CardList extends Component {
       cardCount += decksArray[i].cards.length;
     }
     return cardCount;
-  }
+  };
 
   handleAddCard = () => {
     const { profile, decks, history } = this.props;
@@ -47,25 +47,23 @@ class CardList extends Component {
     this.setState(prevState => ({
       addNewCard: !prevState.addNewCard,
     }));
-  }
+  };
 
   handleDeckData = () => {
     const { decks } = this.props;
-    const deckData = decks.map((deck) => {
-      return { id: deck.id, name: deck.name };
-    })
+    const deckData = decks.map(deck => ({ id: deck.id, name: deck.name }));
     console.log('deckData from cardlist', deckData);
     return deckData;
-  }
+  };
 
   handleWelcomeClick = () => {
     const { history } = this.props;
-    history.push('/dashboard/decks')
-  }
+    history.push('/dashboard/decks');
+  };
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
-  }
+  };
 
   render() {
     const { decks, profile } = this.props;
@@ -90,57 +88,69 @@ class CardList extends Component {
           </ButtonContainer>
         </ModalWrapper>
         <CardListTools addNewCard={this.handleAddCard} />
-        {addNewCard && <AddCard grabDeckInfo={this.handleDeckData} toggleAddCard={this.handleAddCard} />}
+        {addNewCard && (
+          <AddCard grabDeckInfo={this.handleDeckData} toggleAddCard={this.handleAddCard} />
+        )}
         <CardsContainer>
-
-          {allowedDecks.length > 0 && allowedDecks.map((deck) => {
-            return deck.cards.map((card) => {
+          {allowedDecks.length > 0
+            && allowedDecks.map(deck => deck.cards.map((card) => {
               const formattedCard = handleCardSnippets(card);
-              return <Card key={`${card.id} ${card.title}`} card={formattedCard} deckName={deck.name} decks={allowedDecks} />;
-            });
-          })}
+              return (
+                <Card
+                  key={`${card.id} ${card.title}`}
+                  card={formattedCard}
+                  deckName={deck.name}
+                  decks={allowedDecks}
+                />
+              );
+            }))}
         </CardsContainer>
 
         {decks.length === 0 && !addNewCard && (
           <Welcome>
-            <h3>{"Hey, it looks like you haven't made any cards or decks yet!"}</h3>
-            <p>Click <span onClick={this.handleWelcomeClick}> Decks </span>on the sidebar to get started.</p>
+            <h3>Hey, it looks like you haven't made any cards or decks yet!</h3>
+            <p>
+              Click
+              {' '}
+              <span onClick={this.handleWelcomeClick}> Decks </span>
+              on the sidebar to get started.
+            </p>
           </Welcome>
         )}
       </CardListContainer>
     );
   }
-};
+}
 
 export default CardList;
 
 // styled
 
 const CardListContainer = styled.div`
-overflow: auto;
-width: 100%;
-height: 100%;
-margin-left: 100px;
-display: flex;
-flex-direction: column;
-background: ${props => props.theme.dark.bodyBackground};
-padding-bottom: 5%;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+  background: ${props => props.theme.dark.bodyBackground};
+  padding-bottom: 90px;
 
-@media (max-width: 500px) {
-  margin-left: 0;
-  margin-top: 65px;
-}
+  @media (max-width: 500px) {
+    margin-left: 0;
+    margin-top: 65px;
+    height: 84%;
+  }
 `;
 
 const CardsContainer = styled.div`
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
-
 const Welcome = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   height: 100%;
   padding: 20px;
@@ -149,7 +159,7 @@ const Welcome = styled.div`
     font-size: 22px;
     padding: 10px;
   }
-  
+
   p {
     font-size: 18px;
     padding: 10px;
@@ -158,9 +168,9 @@ const Welcome = styled.div`
   span {
     padding-bottom: 10px;
     &:hover {
-    border-bottom: 1px solid lightseagreen;
-    cursor:pointer;
-  }
+      border-bottom: 1px solid lightseagreen;
+      cursor: pointer;
+    }
   }
 `;
 

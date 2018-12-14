@@ -30,17 +30,17 @@ class DeckList extends React.Component {
       showAddDeck: !prevState.showAddDeck,
     }));
     console.log('toggle');
-  }
+  };
 
   goToCheckout = (e) => {
     e.preventDefault();
     const { history } = this.props;
     history.push('/dashboard/profile');
-  }
+  };
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
-  }
+  };
 
   render() {
     const { decks, today, profile } = this.props;
@@ -67,17 +67,27 @@ class DeckList extends React.Component {
         <DeckListTools toggleAddDeck={this.toggleAddDeck} showAddDeck={showAddDeck} />
         <DeckListContainer>
           {/* <DeckContainer> */}
-          {showAddDeck ?
+          {showAddDeck ? (
             <AddDeck toggleAddDeck={this.toggleAddDeck} />
-            : allowedDecks.length > 0 ? allowedDecks.map(deck => (
+          ) : allowedDecks.length > 0 ? (
+            allowedDecks.map(deck => (
               <Deck key={deck.name} deck={deck} today={today} disableDelete disableEdit />
             ))
-              :
-              <Welcome>
-                <h3>Hey, it doesn't look like you have any decks yet!</h3>
-                <p> Click  <span onClick={this.toggleAddDeck}> +Add Deck </span>  on the toolbar to create your first deck. </p>
-              </Welcome>
-          }
+          ) : (
+            <Welcome>
+              <h3>Hey, it doesn't look like you have any decks yet!</h3>
+              <p>
+                {' '}
+                Click
+                {' '}
+                <span onClick={this.toggleAddDeck}> +Add Deck </span>
+                {' '}
+on the toolbar to create
+                your first deck.
+                {' '}
+              </p>
+            </Welcome>
+          )}
           {/* </DeckContainer> */}
         </DeckListContainer>
       </Container>
@@ -95,18 +105,19 @@ DeckList.propTypes = {
 // styles
 
 const Container = styled.div`
-overflow: auto;
-width: 100%;
-height: 100%;
-margin-left: 100px;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-background: ${props => props.theme.dark.bodyBackground};
-padding-bottom: 5%;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: ${props => props.theme.dark.bodyBackground};
+  padding-bottom: 5%;
   @media (max-width: 500px) {
     margin-left: 0;
     margin-top: 65px;
+    height: 90%;
   }
 `;
 
@@ -119,7 +130,7 @@ const DeckListContainer = styled.div`
 `;
 
 const Welcome = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   height: 100%;
   padding: 20px;
@@ -128,7 +139,7 @@ const Welcome = styled.div`
     font-size: 22px;
     padding: 10px;
   }
-  
+
   p {
     font-size: 18px;
     padding: 10px;
@@ -137,9 +148,9 @@ const Welcome = styled.div`
   span {
     padding-bottom: 10px;
     &:hover {
-    border-bottom: 1px solid lightseagreen;
-    cursor:pointer;
-  }
+      border-bottom: 1px solid lightseagreen;
+      cursor: pointer;
+    }
   }
 `;
 
