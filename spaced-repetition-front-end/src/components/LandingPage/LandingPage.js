@@ -81,7 +81,7 @@ const Header = styled.div`
 const JumboTron = styled.div`
   height: 60%;
   width: 100%;
-  padding: 5% 8%;
+  padding: 4% 8%;
   background-size: cover;
   background-position: center bottom;
   letter-spacing: 1px;
@@ -117,7 +117,7 @@ const Body = styled.div`
 
 const CTAText = styled.div`
   height: 70%;
-  font-size: 18px;
+  font-size: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -161,6 +161,7 @@ const CTAText = styled.div`
 
   p {
     line-height: 1.2;
+    padding-top: 5px;
 
     @media (max-width: 650px) {
       font-size: 14px;
