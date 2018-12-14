@@ -10,13 +10,13 @@
 
 Team Members
 
-- [Drew Moody](https://github.com/DrewMoody)
-
-- [Gabriel Duquette](https://github.com/affordances)
+- [Megan Williamson](https://github.com/gooseandmegander)
 
 - [Saxon Hunt](https://github.com/noxasaxon)
 
-- [Megan Williamson](https://github.com/gooseandmegander)
+- [Gabriel Duquette](https://github.com/affordances)
+
+- [Drew Moody](https://github.com/DrewMoody)
 
 Project Manager
 
