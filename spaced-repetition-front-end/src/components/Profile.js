@@ -23,10 +23,10 @@ const Profile = (props) => {
       <Billing profile={profile} handleUpdateTier={handleUpdateTier} />
     </Container>
   ) : (
-      <Container>
-        <ProfileContainer>Loading...</ProfileContainer>
-      </Container>
-    );
+    <Container>
+      <ProfileContainer>Loading...</ProfileContainer>
+    </Container>
+  );
 };
 
 export default Profile;
@@ -36,21 +36,24 @@ export default Profile;
 // };
 
 const Container = styled.div`
-  width: 100%;
   margin-left: 100px;
   padding: 30px;
-  display: flex;
-  flex-direction: row;
   align-items: left;
+  overflow: auto;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-wrap: wrap;
   background: ${props => props.theme.dark.bodyBackground};
-  padding-bottom: 5%;
+  padding-bottom: 100px;
+  margin-bottom: 50px;
+
   @media (max-width: 500px) {
     margin-left: 0;
-    min-height: 750px;
     margin-top: 65px;
     padding-top: 15px;
+    padding-bottom: 90px;
     display: flex;
-    flex-direction: column;
   }
 `;
 
