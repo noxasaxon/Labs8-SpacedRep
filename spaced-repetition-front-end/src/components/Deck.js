@@ -37,11 +37,8 @@ class Deck extends React.Component {
         console.log(response.data)
         history.push('/dashboard/decks');
         window.location.reload();
-
       })
       .catch(error => console.log(error));
-
-
   }
 
   handleEditDeck = (e, id) => {
