@@ -165,30 +165,6 @@ class Deck extends React.Component {
         deleteDeck={this.handleDeleteDeck}
       />
     );
-    // <EditContainer>
-    //   <Header>
-    //     Editing Deck:
-    //   <Cancel type="button" onClick={toggleAddDeck}>x</Cancel>
-    //   </Header>
-    //   <DeckForm onSubmit={this.addDeck}>
-    //     <DeckInfo>
-    //       <DeckItem>
-    //         <p>Deck Name</p>
-    //         <input type="text" value={state.name} name="name" onChange={this.handleChange} placeholder="Name" required />
-    //       </DeckItem>
-    //       <DeckItem>
-    //         <p>Tags</p>
-    //         <input type="text" value={state.tags} name="tags" onChange={this.handleChange} placeholder="Enter a list of tags separated by comma (no spaces)" required />
-    //       </DeckItem>
-
-    //       <SaveButton onClick={this.addDeck}> Save Deck </SaveButton>
-    //     </DeckInfo>
-    //     <Public>
-    //       <p >Enable sharing for this deck?</p>
-    //       <input type="checkbox" name="public" onChange={this.handleChange} />
-    //     </Public>
-    //   </DeckForm>
-    // </EditContainer>
   }
 }
 
@@ -235,6 +211,7 @@ const DeckHeader = styled.div`
 const Title = styled.div`
   font-size: 25px;
   padding-right: 3px;
+  word-break: break-all;
   /* letter-spacing: 1px; */
 `;
 
