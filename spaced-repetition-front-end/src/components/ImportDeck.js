@@ -169,7 +169,7 @@ export default withRouter(ImportDeck);
 
 const DeckViewContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 90%;
   background: ${props => props.theme.dark.bodyBackground};
   margin-left: 100px;
   overflow: auto;
@@ -179,6 +179,12 @@ const DeckViewContainer = styled.div`
     padding: 15px 15px 0px 15px ;
   }
 
+  @media (max-width: 500px) {
+  margin-left: 0;
+  margin-top: 65px;
+  padding-top: 15px;
+  padding-bottom: 90px;
+}
 
 `;
 
