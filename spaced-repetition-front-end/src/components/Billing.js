@@ -7,7 +7,7 @@ import '../App.css';
 const Billing = (props) => {
   const { profile, handleUpdateTier } = props;
   return (
-    <StripeProvider apiKey="pk_test_KoWcK14l0HlLnKEAFc9icsPa">
+    <StripeProvider apiKey="pk_test_0G177i1yXZ17GoqizxduZNfx">
       <Container>
         {profile && profile.tier === 'paid' ? (
           <FreeContainer>
