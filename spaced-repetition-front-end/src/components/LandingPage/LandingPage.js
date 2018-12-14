@@ -16,7 +16,7 @@ const LandingPage = ({ auth }) => {
       <Header>
         <JumboTron>
           <CTAText>
-            <h1>Focus on your what matters to you.</h1>
+            <h1>Focus on what matters to you.</h1>
             <h1>Let us take care of the when.</h1>
             <p>Our application is built on the scientifically proven principles of spaced repetition to help you study more efficiently and less often. We believe in providing a seamless and intuitive study session from beginning to end, whether you're adding new material or reviewing previous.</p>
             <p>Studying with us is as easy as creating your own digital flashcards and decks. We take care of the rest! Are you a programmer? Check out our code snippet integration!</p>
