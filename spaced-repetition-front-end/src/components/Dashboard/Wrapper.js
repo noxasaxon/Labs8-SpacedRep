@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Sidebar from './Sidebar';
-import '../App.css';
+// import '../App.css';
 
 class Wrapper extends React.Component {
   /**

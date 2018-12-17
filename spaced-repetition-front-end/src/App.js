@@ -11,7 +11,7 @@ import UserHeader from './components/UserHeader';
 import LandingPage from './components/LandingPage/LandingPage';
 import DeckList from './components/DecksView/DeckList';
 import CardList from './components/CardsView/CardList';
-import Wrapper from './components/Wrapper';
+import Wrapper from './components/Dashboard/Wrapper';
 import Profile from './components/Profile/Profile';
 import Billing from './components/Profile/Billing';
 import AddDeck from './components/DecksView/AddDeck';
