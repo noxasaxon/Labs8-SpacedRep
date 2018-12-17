@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import TrainingCard from './TrainingCard';
-import handleCardSnippets from '../snippets';
+import handleCardSnippets from '../../snippets';
 
 class TrainDeck extends React.Component {
   state = {

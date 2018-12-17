@@ -7,7 +7,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import styles from './styles';
 import Auth from './auth/Auth';
 import Callback from './auth/Callback';
-import UserHeader from './components/UserHeader';
+import UserHeader from './components/Navigation/UserHeader';
 import LandingPage from './components/LandingPage/LandingPage';
 import DeckList from './components/DecksView/DeckList';
 import CardList from './components/CardsView/CardList';
@@ -15,12 +15,12 @@ import Wrapper from './components/Dashboard/Wrapper';
 import Profile from './components/Profile/Profile';
 import Billing from './components/Profile/Billing';
 import AddDeck from './components/DecksView/AddDeck';
-import TrainDeck from './components/TrainDeck';
+import TrainDeck from './components/TrainDeckModalView/TrainDeck';
 import DeckView from './components/DecksView/DeckView';
 import DeleteCardModal from './components/DeleteCardModal';
 import ImportDeck from './components/ImportDeck';
 import Welcome from './components/Welcome';
-import VisitorHeader from './components/VisitorHeader';
+import VisitorHeader from './components/Navigation/VisitorHeader';
 // import './App.css';
 
 const GlobalStyle = createGlobalStyle`
