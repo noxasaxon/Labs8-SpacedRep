@@ -17,7 +17,7 @@ import Billing from './components/Profile/Billing';
 import AddDeck from './components/DecksView/AddDeck';
 import TrainDeck from './components/TrainDeckModalView/TrainDeck';
 import DeckView from './components/DecksView/DeckView';
-import DeleteCardModal from './components/DeleteCardModal';
+import DeleteCardModal from './components/CardsView/DeleteCardModal';
 import ImportDeck from './components/ImportDeck';
 import Welcome from './components/Welcome';
 import VisitorHeader from './components/Navigation/VisitorHeader';
