@@ -2,7 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Billing from './Billing';
-import '../App.css';
+// import '../App.css';
 
 const Profile = (props) => {
   const { profile, handleUpdateTier } = props;

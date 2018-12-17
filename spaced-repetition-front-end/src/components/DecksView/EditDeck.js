@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import CardInputs from './CardInputs';
+import CardInputs from '../SharedComponents/CardInputs';
 
 // Need to make sure all card inputs are completed before submitting
 // iterate through all the properties exist on each object

@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
-import Card from './Card';
-import CardListTools from './CardListTools';
-// import CardInputs from './CardInputs';
-import AddCard from './AddCard';
+import Card from '../SharedComponents/Card';
+import CardListTools from '../CardsView/CardListTools'; // make card/deck agnostic?
+import AddCard from '../SharedComponents/AddCard';
 import Deck from './Deck';
-import handleCardSnippets from '../snippets';
+import handleCardSnippets from '../../snippets';
 
 
 class CardList extends Component {

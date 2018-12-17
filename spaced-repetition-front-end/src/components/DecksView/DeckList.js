@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Deck from './Deck';
 import AddDeck from './AddDeck';
-import DeckListTools from './DeckListTools.js';
-import '../App.css';
+import DeckListTools from './DeckListTools';
+// import '../App.css';
 
 class DeckList extends React.Component {
   constructor(props) {

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import Card from './Card';
-import Deck from './Deck';
+import Card from './SharedComponents/Card';
+import Deck from './DecksView/Deck';
 import handleCardSnippets from '../snippets';
 
 class ImportDeck extends Component {

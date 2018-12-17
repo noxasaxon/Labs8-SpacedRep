@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-// import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import handleCardSnippets from '../snippets';
-import Card from './Card';
+import handleCardSnippets from '../../snippets';
+import Card from '../SharedComponents/Card';
 import CardListTools from './CardListTools';
-// import CardInputs from './CardInputs';
-import AddCard from './AddCard';
+import AddCard from '../SharedComponents/AddCard';
 
 class CardList extends Component {
   state = {

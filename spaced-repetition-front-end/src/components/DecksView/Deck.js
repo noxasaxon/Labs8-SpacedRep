@@ -4,9 +4,9 @@ import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import EditDeck from './EditDeck';
-import '../App.css';
+// import '../App.css';
 
-const shareIcon = require('../images/shareColorized.svg');
+const shareIcon = require('../../images/shareColorized.svg');
 
 // use to convert int date to actual date
 const DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;

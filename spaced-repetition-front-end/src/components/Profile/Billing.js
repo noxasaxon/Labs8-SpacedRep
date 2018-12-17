@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import CheckoutForm from './CheckoutForm';
-import '../App.css';
+// import '../App.css';
 
 const Billing = (props) => {
   const { profile, handleUpdateTier } = props;
