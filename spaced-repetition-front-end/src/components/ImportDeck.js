@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
@@ -10,7 +9,6 @@ import handleCardSnippets from '../snippets';
 class ImportDeck extends Component {
   state = {
     addNewCard: false,
-    // deckArr: [],
     deck: {
       cards: [],
       dueDate: 0,
@@ -19,11 +17,6 @@ class ImportDeck extends Component {
   };
 
   componentDidMount = () => {
-    const { match } = this.props;
-    const selectedDeckID = match.params.id;
-    console.log(selectedDeckID);
-
-
     this.retrieveDeck();
   }
 
@@ -36,17 +29,15 @@ class ImportDeck extends Component {
 
       axios.get(`${process.env.REACT_APP_URL}/api/decks/${selectedDeckID}`, { headers })
         .then((response) => {
-          console.log(response.data);
           // assign a dueDate to the deck based on its card with most recent dueDate
           if (response.data && response.data.length > 0) {
             const deck = response.data[0];
-
             this.setState({ deck });
           }
         })
-        .catch(error => (
+        .catch(() => (
           this.setState({
-            deck: false
+            deck: false,
           })
         ));
     }
@@ -60,14 +51,12 @@ class ImportDeck extends Component {
   handleDeckData = () => {
     const { decks } = this.props;
     const deckData = decks.map(deck => ({ id: deck.id, name: deck.name }));
-
     return deckData;
   }
 
   handleImport = () => {
     const { deck } = this.state;
     const { history } = this.props;
-
     const newDeck = {
       name: deck.name,
       public: deck.public,
@@ -76,7 +65,6 @@ class ImportDeck extends Component {
     const deckCards = [...deck.cards];
 
     if (deck.cards.length < 1) {
-      console.log('no cards, invalid deck');
       return;
     }
     // remove unnecessary keys
@@ -90,7 +78,6 @@ class ImportDeck extends Component {
       formattedCards.push(formattedCard);
     });
 
-
     // post request to server with formatted cards
     const token = localStorage.getItem('id_token');
     const headers = { Authorization: `Bearer ${token}` };
@@ -99,22 +86,16 @@ class ImportDeck extends Component {
         formattedCards.forEach((x) => {
           x.deck_id = response.data;
         });
-        console.log(formattedCards);
         axios.post(`${process.env.REACT_APP_URL}/api/cards/batch`, formattedCards, { headers })
-          .then((innerResponse) => {
-            console.log(innerResponse);
+          .then(() => {
           })
           .catch(err => console.log(err.message));
 
         window.location.reload();
         history.push('/dashboard/decks');
-
       })
-      .catch(error => (
-        this.setState({
-          errorMessage: error,
-        })
-      ));
+      .catch(() => {
+      });
   }
 
   handleCancel = () => {
@@ -125,47 +106,54 @@ class ImportDeck extends Component {
   render() {
     const { today, decks } = this.props;
     const { deck } = this.state;
-    if(deck) return (
+    if (deck) {
+      return (
+        <DeckViewContainer>
+          <Header>
+            <Instructions>
+              <h2>
+                Import This Deck?
+              </h2>
+              <Controls>
+                <Import onClick={this.handleImport}> Import Deck </Import>
+                <Cancel onClick={this.handleCancel}> Cancel </Cancel>
+              </Controls>
+            </Instructions>
+            <Deck
+              deck={deck}
+              today={today}
+              disableTraining
+              disableView
+              disableDelete
+              disableEdit
+              disableShare
+            />
+          </Header>
+          <h1> Cards: </h1>
+          <CardsContainer>
+            {deck.cards.map((card) => {
+              const formattedCard = handleCardSnippets(card);
+              return <Card key={`${card.id} ${card.title}`} card={formattedCard} deckName={deck.name} decks={decks} />;
+            })}
+          </CardsContainer>
+        </DeckViewContainer>
+      );
+    }
+    return (
       <DeckViewContainer>
         <Header>
-          {/* <CardListTools addNewCard={this.handleAddCard} /> */}
           <Instructions>
-            <h2>
-              Import This Deck?
-            </h2>
-            <Controls>
-              <Import onClick={this.handleImport}> Import Deck </Import>
-              <Cancel onClick={this.handleCancel}> Cancel </Cancel>
-            </Controls>
-
+            <h2>This Deck is not shareable</h2>
           </Instructions>
-          <Deck deck={deck} today={today} disableTraining disableView disableDelete disableEdit disableShare />
         </Header>
-
-        <h1> Cards: </h1>
-        <CardsContainer>
-
-          {/* {addNewCard && <AddCard grabDeckInfo={this.handleDeckData} toggleAddCard={this.handleAddCard} deckID={selectedDeckID} />} */}
-
-          {deck.cards.map((card) => {
-            const formattedCard = handleCardSnippets(card);
-            return <Card key={`${card.id} ${card.title}`} card={formattedCard} deckName={deck.name} decks={decks} />;
-          })}
-
-        </CardsContainer>
       </DeckViewContainer>
-    )
-    else return (
-      <DeckViewContainer>
-        <Header> <Instructions> <h2>This Deck is not shareable </h2></Instructions></Header>
-      </DeckViewContainer>
-    )
+    );
   }
 }
 
 export default withRouter(ImportDeck);
 
-// styled
+// styles
 
 const DeckViewContainer = styled.div`
   width: 100%;
@@ -185,61 +173,53 @@ const DeckViewContainer = styled.div`
   padding-top: 15px;
   padding-bottom: 90px;
 }
-
 `;
 
 const Header = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  padding-top: 15px;
-  align-items: center;
-  flex-wrap:wrap;
+display: flex;
+width: 100%;
+justify-content: center;
+padding-top: 15px;
+align-items: center;
+flex-wrap:wrap;
 `;
 
 const Instructions = styled.div`
-   display:flex;
-   flex-direction: column;
-   justify-content: space-between;
-   align-items: center;
-   width: 50%;
-   height: 154px;
-   h2 {
-    font-size: 28px;
-    font-weight: bold;
-    border-bottom: 1px solid lightseagreen;
-    padding: 30px 3px 5px 3px;
-   }
+display:flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+width: 50%;
+height: 154px;
+h2 {
+font-size: 28px;
+font-weight: bold;
+border-bottom: 1px solid lightseagreen;
+padding: 30px 3px 5px 3px;
+}
 `;
 
 const Controls = styled.div`
-   display:flex;
-   justify-content: space-around;
-   width: 100%;
+display:flex;
+justify-content: space-around;
+width: 100%;
 `;
 
-
 const Import = styled.button`
-  ${props => props.theme.dark.buttons.base}
-  &:hover {
-        background: ${props => props.theme.dark.sidebar};
-      }
+${props => props.theme.dark.buttons.base}
+&:hover {
+  background: ${props => props.theme.dark.sidebar};
+}
 `;
 
 const Cancel = styled(Import)`
-   background: ${props => props.theme.dark.buttons.negative};
-   width: 128px;
+background: ${props => props.theme.dark.buttons.negative};
+width: 128px;
 `;
-
 
 const CardsContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
 `;
-
-
-// CardList.propTypes = {
-//   decks: PropTypes.instanceOf(Object).isRequired,
-// };
