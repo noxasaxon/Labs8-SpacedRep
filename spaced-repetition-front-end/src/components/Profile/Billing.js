@@ -1,23 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import CheckoutForm from './CheckoutForm';
 
-const Pricing = ({ login }) => (
-  <Container id="pricing">
-    <Content>
-      <h2>Pricing</h2>
-      <Boxes>
-        <LeftBox>
-          <PricingCTA>
-            <p>
-              Our mission is to give people like you the tools you need to have a successful study
-              session. That is why we are offering all our features and team support to every tier.
-              We want you to have the true experience of our service from day one.
-            </p>
-            <button type="button" onClick={login}>Get Started!</button>
-          </PricingCTA>
-        </LeftBox>
-        <RightBox>
-          <CardsContainer>
+const Billing = (props) => {
+  const { profile, handleUpdateTier } = props;
+  return (
+    <StripeProvider apiKey="pk_test_0G177i1yXZ17GoqizxduZNfx">
+      <Container>
+        {profile && profile.tier === 'paid'
+          ? (
             <FreeContainer>
               <Header>
                 <Tier>Free</Tier>
@@ -53,6 +45,7 @@ const Pricing = ({ login }) => (
                 </Item>
               </Card>
             </FreeContainer>
+          ) : (
             <UnContainer>
               <Header>
                 <Tier>Unlimited</Tier>
@@ -84,129 +77,32 @@ const Pricing = ({ login }) => (
                 </Item>
                 <Item>
                   <i className="fas fa-check fs-2x" />
+                  {' '}
                   Unlimited Usage
                 </Item>
               </Card>
             </UnContainer>
-          </CardsContainer>
-        </RightBox>
-      </Boxes>
-    </Content>
-  </Container>
-);
+          )}
+        <Elements>
+          <CheckoutForm handleUpdateTier={handleUpdateTier} profile={profile} />
+        </Elements>
+      </Container>
+    </StripeProvider>
+  );
+};
 
-export default Pricing;
+export default Billing;
 
-// styled
+// styles
 
-const Container = styled.section`
-width: 100%;
-height: 100%;
-margin: auto 0;
-padding: 5%;
-background-color: #2f3d47;
-`;
-
-const Content = styled.div`
-width: 100%;
-height: 100%;
-
-h2 {
-  width: 100%;
-  height: 10%;
-  font-size: 34px;
-  letter-spacing: 1px;
-}
-`;
-
-const Boxes = styled.div`
-width: 100%;
-height: 90%;
+const Container = styled.div`
 display: flex;
-justify-content: space-between;
-
-@media (max-width: 900px) {
-  flex-direction: column-reverse;
-}
-`;
-
-
-const LeftBox = styled.div`
-width: 30%;
-height: 100%;
-justify-content: space-between;
-display: flex;
-align-items: center;
-
-p {
-  line-height: 1.5;
-  font-size: 20px;
-}
-  
-button {
-  font-size: 20px;
-  margin-bottom: 20px;
-  width: 100%;
-  background-color: mediumseagreen;
-  box-shadow: 2px 2px 2px black;
-  &:hover {
-    background-color: lightseagreen;
-  }
-}
-
-@media (max-width: 900px) {
-  width: 100%;
-  height: 55%;
-  button {
-    margin-bottom: 0;
-    width: 50%;
-    align-self: center;
-  }
-}
-`;
-
-const PricingCTA = styled.div`
-width: 100%;
-height: 80%;
-display: flex;
+width: 50%;
 flex-direction: column;
-justify-content: space-between;
-
-@media (max-width: 900px) {
-  height: 100%;
-}
-
-@media (max-width: 600px) {
-  p {
-    font-size: 14px;
-    line-height: 1.7;
-  }
-}
-`;
-
-const RightBox = styled.div`
-width: 60%;
-height: 100%;
-display: flex;
-
-@media (max-width: 900px) {
+padding-left: 20px;
+@media (max-width: 500px) {
   width: 100%;
-}
-`;
-
-const CardsContainer = styled.div`
-height: 100%;
-width: 100%;
-display: flex;
-justify-content: space-around;
-align-items: center;
-
-@media (max-width: 900px) {
-  align-items: flex-start
-}
-
-@media (max-width: 600px) {
-  flex-direction: column;
+  padding: 30px 0 0 0;
 }
 `;
 
@@ -215,7 +111,7 @@ border: 1px solid gray;
 background-color: #3c4f5d;
 width: 45%;
 height: 90%;
-box-shadow: 6px 6px 15px 1px black;
+margin-bottom: 20px;
 
 @media (max-width: 600px) {
   width: 100%;
@@ -225,6 +121,9 @@ box-shadow: 6px 6px 15px 1px black;
 `;
 
 const UnContainer = styled(FreeContainer)`
+min-height: 140px;
+min-width: 80px;
+margin-bottom: 20px;
 width: 40%;
 height: 80%;
 box-shadow: none;
@@ -233,10 +132,11 @@ box-shadow: none;
 const Header = styled.div`
 width: 100%;
 height: 30%;
+
 span {
   font-size: 50px;
+
   &::before {
-    content: '$';
     position: absolute;
     font-size: 15px;
     margin-left: -10px;
@@ -281,6 +181,7 @@ i {
 }
 
 @media (max-width: 600px) {
+  // margin: 0px 2%;
   width: 48%;
 }
 `;
@@ -292,7 +193,7 @@ font-size: 32px;
 font-weight: bold;
 text-align: center;
 background: lightseagreen;
-            
+
 @media (max-width: 900px) {
   padding-top: 1%;
   font-size: 30px;
@@ -310,9 +211,8 @@ text-shadow: 1px 1px 2px black;
 font-weight: bold;
 text-align: center;
 span {
-font-size: 50px;
+  font-size: 50px;
   &::before {
-    content: '$';
     position: absolute;
     font-size: 15px;
     margin-left: -10px;

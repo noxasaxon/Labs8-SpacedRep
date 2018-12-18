@@ -11,8 +11,8 @@ class DeleteCardModal extends Component {
   }
 
   handleDelete = () => {
-    const { match, deleteCard, history } = this.props;
-    deleteCard(match.params.id, match.params.deckId);
+    const { match: { params: { id, deckId } }, deleteCard, history } = this.props;
+    deleteCard(id, deckId);
     this.setState({ wasDeleted: true });
     setTimeout(history.push('/dashboard/decks'), 1500);
   }

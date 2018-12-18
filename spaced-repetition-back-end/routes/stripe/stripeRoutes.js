@@ -33,7 +33,7 @@ router.put('/', async (req, res) => {
     const subscriptionToCancel = await users.findByUser(user_id);
     await stripe.customers.del(
       subscriptionToCancel[0].stripe_customer_id,
-      function(err, confirmation) {
+      function (err, confirmation) {
         if (err) {
           console.log(err);
         }

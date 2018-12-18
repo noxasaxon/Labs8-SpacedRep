@@ -9,8 +9,10 @@ import history from './history';
 import './index.css';
 
 if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line global-require
   require('dotenv').load();
 }
+
 const theme = {
   dark,
 };

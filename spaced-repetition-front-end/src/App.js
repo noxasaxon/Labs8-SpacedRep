@@ -1,3 +1,6 @@
+/* eslint no-param-reassign: ["error",
+{ "props": true, "ignorePropertyModificationsFor": ["deck"] }] */
+
 import React, { Component } from 'react';
 import {
   Route, Switch, withRouter, matchPath,
@@ -7,21 +10,20 @@ import styled, { createGlobalStyle } from 'styled-components';
 import styles from './styles';
 import Auth from './auth/Auth';
 import Callback from './auth/Callback';
-import UserHeader from './components/UserHeader';
+import UserHeader from './components/Navigation/UserHeader';
 import LandingPage from './components/LandingPage/LandingPage';
-import DeckList from './components/DeckList';
-import CardList from './components/CardList';
-import Wrapper from './components/Wrapper';
-import Profile from './components/Profile';
-import Billing from './components/Billing';
-import AddDeck from './components/AddDeck';
-import TrainDeck from './components/TrainDeck';
-import DeckView from './components/DeckView';
-import DeleteCardModal from './components/DeleteCardModal';
+import DeckList from './components/DecksView/DeckList';
+import CardList from './components/CardsView/CardList';
+import Wrapper from './components/Dashboard/Wrapper';
+import Profile from './components/Profile/Profile';
+import Billing from './components/Profile/Billing';
+import AddDeck from './components/DecksView/AddDeck';
+import TrainDeck from './components/TrainDeckModalView/TrainDeck';
+import DeckView from './components/DecksView/DeckView';
+import DeleteCardModal from './components/CardsView/DeleteCardModal';
 import ImportDeck from './components/ImportDeck';
 import Welcome from './components/Welcome';
-import VisitorHeader from './components/VisitorHeader';
-// import './App.css';
+import VisitorHeader from './components/Navigation/VisitorHeader';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -73,7 +75,6 @@ class App extends Component {
       profile: null,
       cardsToUpdate: [],
       serverUpdateTimer: null,
-      errorMessage: '',
     };
   }
 
@@ -100,31 +101,24 @@ class App extends Component {
 
     axios.get(`${process.env.REACT_APP_URL}/api/decks/`, { headers })
       .then((response) => {
-        console.log(response.data);
         // assign a dueDate to the deck based on its card with most recent dueDate
         const decks = response.data;
         decks.forEach((deck) => {
-          let dueDate = 0;
-          deck.cards.forEach((card) => {
-            if (dueDate) {
-              if (dueDate > card.dueDate) {
-                dueDate = card.dueDate;
+          let deckDueDate = 0;
+          deck.cards.forEach(({ dueDate }) => {
+            if (deckDueDate) {
+              if (deckDueDate > dueDate) {
+                deckDueDate = dueDate;
               }
             } else {
-              dueDate = card.dueDate;
+              deckDueDate = dueDate;
             }
           });
-
-          deck.dueDate = dueDate || today;
+          deck.dueDate = deckDueDate || today;
         });
-
         this.setState({ decks });
       })
-      .catch(error => (
-        this.setState({
-          errorMessage: error,
-        })
-      ));
+      .catch(error => console.log(error));
   }
 
   addCardToUpdate = (cardProgressObject = false) => {
@@ -148,10 +142,12 @@ class App extends Component {
   };
 
   updateServer = () => {
-    // wait is done, send a POST to server to update card progress in case user does not save manually
+    /* wait is done, send a POST to server to update card progress
+    in case user does not save manually */
     const { decks, cardsToUpdate } = this.state;
     const cards = cardsToUpdate;
-    // if server is told to update via End Session/Save in TrainDeck, only update the server if there
+    /* if server is told to update via End Session/Save in TrainDeck
+    only update the server if there */
     // are any cards in the queue
     if (cards.length < 1) return;
 
@@ -164,54 +160,48 @@ class App extends Component {
         .then((response) => {
           // this will return JSON with all of the progress data for this user
           // we can then use this to update the due dates of all the cards we just sent
-          console.log(response);
           const newDates = response.data;
 
           cards.forEach((card) => {
             if (newDates[card.cardID]) {
               const newDueDate = newDates[card.cardID].dueDate;
-              for (let i = 0; i < decks.length; i++) {
-                if (decks[i].id == card.deckID) {
-                  for (let j = 0; j < decks[i].cards.length; j++) {
-                    if (decks[i].cards[j].id == card.cardID) {
+              for (let i = 0; i < decks.length; i += 1) {
+                if (Number(decks[i].id) === Number(card.deckID)) {
+                  for (let j = 0; j < decks[i].cards.length; j += 1) {
+                    if (Number(decks[i].cards[j].id) === Number(card.cardID)) {
                       decks[i].cards[j].dueDate = newDueDate;
                       // search through deck for most recent dueDate from all its cards
-                      let dueDate = 0;
-                      decks[i].cards.forEach((card) => {
-                        if (dueDate) {
-                          if (dueDate > card.dueDate.dueDate) {
-                            dueDate = card.dueDate;
+                      let deckDueDate = 0;
+                      decks[i].cards.forEach(({ cardInDeck: { dueDate } }) => {
+                        if (deckDueDate) {
+                          if (deckDueDate > dueDate.dueDate) {
+                            deckDueDate = dueDate;
                           }
                         } else {
-                          dueDate = card.dueDate;
+                          deckDueDate = dueDate;
                         }
                       });
-                      decks[i].dueDate = dueDate || today;
+                      decks[i].dueDate = deckDueDate || today;
                       break;
                     }
                   }
                 }
               }
             } else {
-              console.log('update failed');
+              alert('update failed');
             }
           });
-
-          console.log(decks);
           this.setState({ decks });
         })
-        .catch(error => this.setState({
-          errorMessage: error,
-        }));
+        .catch(error => console.log(error));
     }
-
     // reset timer and updateQueue
     this.setState({ cardsToUpdate: [], serverUpdateTimer: null });
   };
 
-  handleTrainDeck = (props) => {
+  handleTrainDeck = ({ match }) => {
     const { decks } = this.state;
-    return decks.filter(deck => Number(deck.id) === Number(props.match.params.deckId));
+    return decks.filter(deck => Number(deck.id) === Number(match.params.deckId));
   }
 
   handleUpdateTier = (tier) => {
@@ -235,6 +225,7 @@ class App extends Component {
               if (Number(card.id) === Number(cardId)) {
                 deck.cards.splice(i, 1);
               }
+              return card;
             });
           }
           return deck;
@@ -264,7 +255,7 @@ class App extends Component {
   render() {
     const { decks, profile } = this.state;
     return (
-      <AppWrapper id="AppWrapper">
+      <AppWrapper>
         <GlobalStyle />
         <Route exact path="/" render={props => <VisitorHeader auth={auth} {...props} />} />
         <Route path="/dashboard" render={props => <UserHeader auth={auth} {...props} />} />
@@ -293,7 +284,13 @@ class App extends Component {
               path="/dashboard/decks/:deckId/train"
               render={(props) => {
                 const deckToTrain = this.handleTrainDeck(props);
-                return <TrainDeck deck={deckToTrain[0]} updateProgress={this.addCardToUpdate} {...props} />;
+                return (
+                  <TrainDeck
+                    deck={deckToTrain[0]}
+                    updateProgress={this.addCardToUpdate}
+                    {...props}
+                  />
+                );
               }}
             />
             <Route
@@ -313,6 +310,7 @@ class App extends Component {
 export default withRouter(App);
 
 // styles
+
 const AppWrapper = styled.div`
   max-width: 1500px;
   height: 100%;
