@@ -5,7 +5,6 @@ import Modal from 'react-modal';
 import Deck from './Deck';
 import AddDeck from './AddDeck';
 import DeckListTools from './DeckListTools';
-// import '../App.css';
 
 class DeckList extends React.Component {
   constructor(props) {
@@ -29,11 +28,10 @@ class DeckList extends React.Component {
     this.setState(prevState => ({
       showAddDeck: !prevState.showAddDeck,
     }));
-    console.log('toggle');
   };
 
-  goToCheckout = (e) => {
-    e.preventDefault();
+  goToCheckout = ({ e: { preventDefault } }) => {
+    preventDefault();
     const { history } = this.props;
     history.push('/dashboard/profile');
   };
@@ -52,7 +50,7 @@ class DeckList extends React.Component {
       allowedDecks = decks;
     }
     return (
-      <Container id="decklist container">
+      <Container>
         <ModalWrapper isOpen={modalIsOpen} onRequestClose={this.closeModal}>
           <Text>Only paid users can make more than 3 decks!</Text>
           <ButtonContainer>
@@ -66,29 +64,24 @@ class DeckList extends React.Component {
         </ModalWrapper>
         <DeckListTools toggleAddDeck={this.toggleAddDeck} showAddDeck={showAddDeck} />
         <DeckListContainer>
-          {/* <DeckContainer> */}
-          {showAddDeck ? (
-            <AddDeck toggleAddDeck={this.toggleAddDeck} />
-          ) : allowedDecks.length > 0 ? (
-            allowedDecks.map(deck => (
-              <Deck key={deck.name} deck={deck} today={today} disableDelete disableEdit />
-            ))
-          ) : (
-            <Welcome>
-              <h3>Hey, it doesn't look like you have any decks yet!</h3>
-              <p>
-                {' '}
-                Click
-                {' '}
-                <span onClick={this.toggleAddDeck}> +Add Deck </span>
-                {' '}
-on the toolbar to create
-                your first deck.
-                {' '}
-              </p>
-            </Welcome>
-          )}
-          {/* </DeckContainer> */}
+          {showAddDeck && <AddDeck toggleAddDeck={this.toggleAddDeck} />}
+          {allowedDecks.length > 0
+            ? (
+              allowedDecks.map(deck => (
+                <Deck key={deck.name} deck={deck} today={today} disableDelete disableEdit />
+              ))
+            ) : (
+              <Welcome>
+                <h3>Hey, it doesn't look like you have any decks yet!</h3>
+                <p>
+                  Click
+                  {' '}
+                  <span onClick={this.toggleAddDeck}> +Add Deck </span>
+                  {' '}
+                  on the toolbar to create your first deck.
+                </p>
+              </Welcome>
+            )}
         </DeckListContainer>
       </Container>
     );
@@ -105,108 +98,107 @@ DeckList.propTypes = {
 // styles
 
 const Container = styled.div`
-  overflow: auto;
-  width: 100%;
-  height: 100%;
-  margin-left: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background: ${props => props.theme.dark.bodyBackground};
-  padding-bottom: 5%;
-  @media (max-width: 500px) {
-    margin-left: 0;
-    margin-top: 65px;
-    height: 90%;
-  }
+overflow: auto;
+width: 100%;
+height: 100%;
+margin-left: 100px;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+background: ${props => props.theme.dark.bodyBackground};
+padding-bottom: 5%;
+@media (max-width: 500px) {
+  margin-left: 0;
+  margin-top: 65px;
+  height: 90%;
+}
 `;
 
 const DeckListContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+height: 100%;
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
 `;
 
 const Welcome = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 20px;
+display: flex;
+flex-direction: column;
+height: 100%;
+padding: 20px;
 
-  h3 {
-    font-size: 22px;
-    padding: 10px;
-  }
+h3 {
+  font-size: 22px;
+  padding: 10px;
+}
 
-  p {
-    font-size: 18px;
-    padding: 10px;
-  }
+p {
+  font-size: 18px;
+  padding: 10px;
+}
 
-  span {
-    padding-bottom: 10px;
-    &:hover {
-      border-bottom: 1px solid lightseagreen;
-      cursor: pointer;
-    }
+span {
+  padding-bottom: 10px;
+  &:hover {
+    border-bottom: 1px solid lightseagreen;
+    cursor: pointer;
   }
+}
 `;
 
 const ModalWrapper = styled(Modal)`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  transform: translate(130%, 100%);
-  padding: 25px;
-  width: 350px;
-  height: 200px;
-  border: 1px solid black;
-  color: white;
-  background: ${props => props.theme.dark.cardBackground};
-  border-radius: 4px;
-  &:focus {
-    outline: none;
-  }
-  @media (max-width: 500px) {
-    transform: translate(7%, 60%);
-  }
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+transform: translate(130%, 100%);
+padding: 25px;
+width: 350px;
+height: 200px;
+border: 1px solid black;
+color: white;
+background: ${props => props.theme.dark.cardBackground};
+border-radius: 4px;
+&:focus {
+  outline: none;
+}
+@media (max-width: 500px) {
+  transform: translate(7%, 60%);
+}
 `;
 
 const Text = styled.p`
-  width: 300px;
-  font-size: 25px;
-  text-align: center;
+width: 300px;
+font-size: 25px;
+text-align: center;
 `;
 
 const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+display: flex;
+flex-direction: column;
 `;
 
 const SaveButton = styled.button`
-  ${props => props.theme.dark.buttons.base}
-  &:hover {
-    background: ${props => props.theme.dark.logo};
-    cursor: pointer;
-  }
-  font-size: 16px;
+${props => props.theme.dark.buttons.base}
+font-size: 16px;
+&:hover {
+  background: ${props => props.theme.dark.logo};
+  cursor: pointer;
+}
 `;
 
 const Cancel = styled.button`
-  border: none;
-  background: none;
-  color: lightgrey;
-  font-weight: bold;
-  font-size: 20px;
-  height: 26px;
-  margin: 0px;
-  padding: 10px 0 0 0;
-  color: white;
-  &:hover {
-    text-decoration: underline;
-  }
-  /* width: 100px; */
+border: none;
+background: none;
+color: lightgrey;
+font-weight: bold;
+font-size: 20px;
+height: 26px;
+margin: 0px;
+padding: 10px 0 0 0;
+color: white;
+&:hover {
+  text-decoration: underline;
+}
 `;
