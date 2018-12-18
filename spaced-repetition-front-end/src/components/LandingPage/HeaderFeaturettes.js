@@ -1,3 +1,6 @@
+/* eslint no-confusing-arrow: ["off"] */
+// disabling no-confusing-arrow to use styled-components syntax
+
 import React from 'react';
 import styled from 'styled-components';
 
@@ -6,20 +9,18 @@ const info = [
   { icon: 'fas fa-share-square fa-3x', title: 'Deck Sharing', description: 'Make learning collaborative. Share your decks with your peers.' },
   { icon: 'fas fa-code fa-3x', title: 'Code Snippets', description: 'We support Javascript, HTML, CSS, and Python as well as images and markdown.' },
 ];
-// fas fa-share-alt
-const HeaderFeaturettes = () => {
-  return (
-    <Container>
-      {info.map(featurette => (
-        <Featurette name={featurette.title} key={featurette.title}>
-          <h3>{featurette.title}</h3>
-          <i className={featurette.icon} aria-hidden="true"></i>
-          <p>{featurette.description}</p>
-        </Featurette>
-      ))}
-    </Container>
-  );
-};
+
+const HeaderFeaturettes = () => (
+  <Container>
+    {info.map(featurette => (
+      <Featurette name={featurette.title} key={featurette.title}>
+        <h3>{featurette.title}</h3>
+        <i className={featurette.icon} aria-hidden="true" />
+        <p>{featurette.description}</p>
+      </Featurette>
+    ))}
+  </Container>
+);
 
 export default HeaderFeaturettes;
 
