@@ -1,58 +1,99 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Pricing = ({ login }) => {
-  return (
-    <Container id="pricing">
-      <Content>
-        <h2>Pricing</h2>
-        <Boxes>
-          <LeftBox>
-            <PricingCTA>
-              <p>
-                Our mission is to give people like you the tools you need to have a successful study session.
-                That is why we are offering all our features and team support to every tier. We want you to have the true experience of our service from day one.
-              </p>
-              <button type="button" onClick={login}>Get Started!</button>
-            </PricingCTA>
-          </LeftBox>
-          <RightBox>
-            <CardsContainer>
-              <FreeContainer>
-                <Header>
-                  <Tier>Free</Tier>
-                  <Price><span>0</span>/mo.</Price>
-                </Header>
-                <Card>
-                  <Item><i class="fas fa-check fs-2x" />Code Snippets</Item>
-                  <Item><i class="fas fa-check fs-2x" />Built-in SRS</Item>
-                  <Item><i class="fas fa-check fs-2x" />Team Support</Item>
-                  <Item><i class="fas fa-check fs-2x" />Deck Sharing</Item>
-                  <Item><i class="fas fa-check fs-2x" />Training Mode</Item>
-                  <Item><i class="fas fa-check fs-2x" />3 Decks/150 Cards</Item>
-                </Card>
-              </FreeContainer>
-              <UnContainer>
-                <Header>
-                  <Tier>Unlimited</Tier>
-                  <Price><span>9</span>.99/mo.</Price>
-                </Header>
-                <Card>
-                  <Item><i class="fas fa-check fs-2x" />Code Snippets</Item>
-                  <Item><i class="fas fa-check fs-2x" />Built-in SRS</Item>
-                  <Item><i class="fas fa-check fs-2x" />Team Support</Item>
-                  <Item><i class="fas fa-check fs-2x" />Deck Sharing</Item>
-                  <Item><i class="fas fa-check fs-2x" />Training Mode</Item>
-                  <Item><i class="fas fa-check fs-2x" /> Unlimited Usage</Item>
-                </Card>
-              </UnContainer>
-            </CardsContainer>
-          </RightBox>
-        </Boxes>
-      </Content>
-    </Container>
-  );
-};
+const Pricing = ({ login }) => (
+  <Container id="pricing">
+    <Content>
+      <h2>Pricing</h2>
+      <Boxes>
+        <LeftBox>
+          <PricingCTA>
+            <p>
+              Our mission is to give people like you the tools you need to have a successful study
+              session. That is why we are offering all our features and team support to every tier.
+              We want you to have the true experience of our service from day one.
+            </p>
+            <button type="button" onClick={login}>Get Started!</button>
+          </PricingCTA>
+        </LeftBox>
+        <RightBox>
+          <CardsContainer>
+            <FreeContainer>
+              <Header>
+                <Tier>Free</Tier>
+                <Price>
+                  <span>0</span>
+                  /mo.
+                </Price>
+              </Header>
+              <Card>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  Code Snippets
+                </Item>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  Built-in SRS
+                </Item>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  Team Support
+                </Item>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  Deck Sharing
+                </Item>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  Training Mode
+                </Item>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  3 Decks/150 Cards
+                </Item>
+              </Card>
+            </FreeContainer>
+            <UnContainer>
+              <Header>
+                <Tier>Unlimited</Tier>
+                <Price>
+                  <span>9</span>
+                  .99/mo.
+                </Price>
+              </Header>
+              <Card>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  Code Snippets
+                </Item>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  Built-in SRS
+                </Item>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  Team Support
+                </Item>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  Deck Sharing
+                </Item>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  Training Mode
+                </Item>
+                <Item>
+                  <i className="fas fa-check fs-2x" />
+                  Unlimited Usage
+                </Item>
+              </Card>
+            </UnContainer>
+          </CardsContainer>
+        </RightBox>
+      </Boxes>
+    </Content>
+  </Container>
+);
 
 export default Pricing;
 
@@ -91,40 +132,38 @@ justify-content: space-between;
 
 
 const LeftBox = styled.div`
-  width: 30%;
-  height: 100%;
-  justify-content: space-between;
-  display: flex;
-  align-items: center;
+width: 30%;
+height: 100%;
+justify-content: space-between;
+display: flex;
+align-items: center;
+
+p {
+  line-height: 1.5;
+  font-size: 20px;
+}
   
-  p {
-    line-height: 1.5;
-    font-size: 20px;
+button {
+  font-size: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  background-color: mediumseagreen;
+  box-shadow: 2px 2px 2px black;
+  &:hover {
+    background-color: lightseagreen;
   }
-  
+}
+
+@media (max-width: 900px) {
+  width: 100%;
+  height: 55%;
   button {
-    font-size: 20px;
-    margin-bottom: 20px;
-    width: 100%;
-    background-color: mediumseagreen;
-    box-shadow: 2px 2px 2px black;
-
-    &:hover {
-      background-color: lightseagreen;
-    }
+    margin-bottom: 0;
+    width: 50%;
+    align-self: center;
   }
-
-  @media (max-width: 900px) {
-    width: 100%;
-    height: 55%;
-
-    button {
-      margin-bottom: 0;
-      width: 50%;
-      align-self: center;
-    }
-  }
-  `;
+}
+`;
 
 const PricingCTA = styled.div`
 width: 100%;
@@ -194,26 +233,24 @@ box-shadow: none;
 const Header = styled.div`
 width: 100%;
 height: 30%;
-
 span {
-    font-size: 50px;
-    
-    &::before {
-      content: '$';
-      position: absolute;
-      font-size: 15px;
-      margin-left: -10px;
-      margin-top: 10px;
-    }
+  font-size: 50px;
+  &::before {
+    content: '$';
+    position: absolute;
+    font-size: 15px;
+    margin-left: -10px;
+    margin-top: 10px;
   }
+}
 
-  @media (max-width: 600px) {
-    display: flex;
-    justify-content: space-between;
-    height: 40%;
-    background: lightseagreen;
-    padding: 0 4%;
-  }
+@media (max-width: 600px) {
+  display: flex;
+  justify-content: space-between;
+  height: 40%;
+  background: lightseagreen;
+  padding: 0 4%;
+}
 `;
 
 const Card = styled.ul`
@@ -244,7 +281,6 @@ i {
 }
 
 @media (max-width: 600px) {
-  // margin: 0px 2%;
   width: 48%;
 }
 `;
@@ -258,8 +294,8 @@ text-align: center;
 background: lightseagreen;
             
 @media (max-width: 900px) {
-padding-top: 1%;
-font-size: 30px;
+  padding-top: 1%;
+  font-size: 30px;
 }
 
 @media (max-width: 600px) {
@@ -274,8 +310,7 @@ text-shadow: 1px 1px 2px black;
 font-weight: bold;
 text-align: center;
 span {
-  font-size: 50px;
-  
+font-size: 50px;
   &::before {
     content: '$';
     position: absolute;
