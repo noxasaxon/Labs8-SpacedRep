@@ -30,12 +30,6 @@ const UserHeader = ({ auth }, props) => {
 
 export default UserHeader;
 
-UserHeader.propTypes = {
-  auth: PropTypes.shape({
-    isAuthenticated: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
 // styles
 
 const Container = styled.div`
@@ -52,16 +46,15 @@ align-items: center;
 justify-content: space-between;
 background: ${props => props.theme.dark.main};
 border-bottom: 1px solid white;
-/* margin: 0 auto;  //needed to fix header going off center when zoom out?*/
 `;
 
 const AppName = styled(Link)`
 align-self: center;
 
-  h1 {
-    font-family: 'Comfortaa', cursive;
-    font-size: 26px;
-  }
+h1 {
+  font-family: 'Comfortaa', cursive;
+  font-size: 26px;
+}
 `;
 
 const LinkStyled = styled.button`
@@ -75,3 +68,9 @@ background: none;
 border-radius: 3px;
 border: 1px solid lightseagreen;
 `;
+
+UserHeader.propTypes = {
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.func.isRequired,
+  }).isRequired,
+};
