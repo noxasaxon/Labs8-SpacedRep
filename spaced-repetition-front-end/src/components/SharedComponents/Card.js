@@ -219,8 +219,6 @@ box-shadow: 2px 2px 10px 0px black;
 border-radius: 20px;
 width: 100%;
 max-width: 415px;
-/* height: 100%; */
-/* max-height: 370px; */
 margin: 2%;
 border: 1px solid ${props => props.theme.dark.main};
 background: ${props => props.theme.dark.cardBackground};
@@ -347,144 +345,128 @@ i {
 `;
 
 const EditContainer = styled.div`
-/* box-shadow: 2px 2px 10px 0px black; */
-/* border-radius: 20px; */
 width: 100%;
 max-width: 415px;
-/* height: 100%; */
-/* max-height: 370px; */
-/* margin: 2%; */
 border: 1px solid ${props => props.theme.dark.main};
 background: ${props => props.theme.dark.cardBackground};
-  width: 100%;
-  max-width: 415px;
-  margin: 10px;
-  h2 {
-    font-weight: bold;
-  }
+width: 100%;
+max-width: 415px;
+margin: 10px;
+h2 {
+  font-weight: bold;
+}
 `;
 
 const Header = styled.div`
-  display: flex;
-  justify-content:space-between;
-  align-items: center;
-  /* align-content:center; */
-  width: 100%;
-  margin-bottom: 12px;
-  font-size: 18px;
+display: flex;
+justify-content:space-between;
+align-items: center;
+width: 100%;
+margin-bottom: 12px;
+font-size: 18px;
 `;
 
 const Cancel = styled.button`
-  border: none;
-  background: none;
-  color: lightgrey;
-  font-weight: bold;
-  font-size: 24px;
-  height: 26px;
-  margin: 0px;
-  color: ${props => props.theme.dark.buttons.negative};
-  &:hover {
-    /* background: grey; */
-  }
-  /* width: 100px; */
+border: none;
+background: none;
+color: lightgrey;
+font-weight: bold;
+font-size: 24px;
+height: 26px;
+margin: 0px;
+color: ${props => props.theme.dark.buttons.negative};
 `;
 
 const DescriptionLine = styled.div`
-  display:flex;
-  justify-content:space-between;
-  font-size: 18px;
-  padding-bottom: 2px;
+display:flex;
+justify-content:space-between;
+font-size: 18px;
+padding-bottom: 2px;
 `;
 
 const DropdownLine = styled.div`
-  display:flex;
-  justify-content:space-between;
-  padding-bottom: 2px;
-  font-size: 18px;
+display:flex;
+justify-content:space-between;
+padding-bottom: 2px;
+font-size: 18px;
 `;
 
 const Caption = styled.p`
-  font-size: 14px;
-  color: lightgrey;
+font-size: 14px;
+color: lightgrey;
 `;
 
 const TopRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  background: #5e707b;
-  border-radius: 3px;
-  align-items: baseline;
-  justify-content: space-between;
-  box-shadow: none;
+display: flex;
+flex-direction: row;
+width: 100%;
+background: #5e707b;
+border-radius: 3px;
+align-items: baseline;
+justify-content: space-between;
+box-shadow: none;
 
-  input[name="title"] {
-    flex-grow:1;
-  }
+input[name="title"] {
+  flex-grow:1;
+}
 
-  button, select {
-    margin-left: 5px;
-  }
+button, select {
+  margin-left: 5px;
+}
 `;
 
 const CardInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 10px;
-  background: ${props => props.theme.dark.cardBackground};
-  border-radius: 3px;
-  box-shadow: none;
-
-  input[type="text"] {
-    /* width: 100%; */
-  }
-
+display: flex;
+flex-direction: column;
+width: 100%;
+padding: 10px;
+background: ${props => props.theme.dark.cardBackground};
+border-radius: 3px;
+box-shadow: none;
 `;
 
 const Description = styled.p`
-  font-size: 18px;
-  padding-right: 10px;
+font-size: 18px;
+padding-right: 10px;
 `;
 
 const Dropdown = styled.select`
-  border-radius: 3px;
-  background-color: lightgray;
-  border: none;
-  height: 50px;
-  width: 30%;
-  min-width: 100px;
+border-radius: 3px;
+background-color: lightgray;
+border: none;
+height: 50px;
+width: 30%;
+min-width: 100px;
 `;
 
 const DropdownOption = styled.option`
-  /* background: darkgrey; */
-  background: ${props => props.theme.dark.main};
-  color: white;
+background: ${props => props.theme.dark.main};
+color: white;
 `;
 
 const TextArea = styled.textarea`
-    height: 75px;
-    padding: 15px;
-    resize: vertical;
+height: 75px;
+padding: 15px;
+resize: vertical;
 `;
 
 const Save = styled.button`
-    width: 40%;
-    ${props => props.theme.dark.buttons.base}
-    &:hover {
-      background: ${props => props.theme.dark.logo};
-      color: ${props => props.theme.dark.main};
-      cursor: pointer;
-    }
-    font-size: 16px;
+width: 40%;
+${props => props.theme.dark.buttons.base}
+font-size: 16px;
+&:hover {
+  background: ${props => props.theme.dark.logo};
+  color: ${props => props.theme.dark.main};
+  cursor: pointer;
+}
 `;
 
 const DeleteCard = styled(Save)`
-    background: ${props => props.theme.dark.buttons.negative};
-    &:hover {
-    color: ${props => props.theme.dark.main};
-    background: #F7979C;
-  }
+background: ${props => props.theme.dark.buttons.negative};
+&:hover {
+color: ${props => props.theme.dark.main};
+background: #F7979C;
+}
 `;
 
 Card.propTypes = {
