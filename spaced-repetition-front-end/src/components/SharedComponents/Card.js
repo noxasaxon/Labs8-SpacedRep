@@ -1,30 +1,30 @@
+/* eslint no-confusing-arrow: ["off"] */
+// disabling no-confusing-arrow to use styled-components syntax
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import Highlight from 'react-highlight.js';
 import styled from 'styled-components';
 import axios from 'axios';
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
 class Card extends React.Component {
   state = {
     isEditing: false,
-    dropDownOpenDecks: false,
-    dropDownOpenLangs: false,
-    languages: ['JavaScript', 'CSS', 'none'],
-    deckNames: [],
-    selectedLang: 'none',
-    selectedDeck: 'none',
-    deckId: 0,
     title: '',
     question: '',
     answer: '',
     language: '',
-    tags: '',
   };
 
   componentDidMount = () => {
-    const { answer, question, title, language } = this.props.card;
-    this.setState({ answer, question, title, language })
+    const { card } = this.props;
+    const {
+      answer, question, title, language,
+    } = card;
+    this.setState({
+      answer, question, title, language,
+    });
   }
 
 
@@ -35,50 +35,18 @@ class Card extends React.Component {
     });
   }
 
-  toggleListDecks = () => {
-    this.setState(prevState => ({
-      dropDownOpenDecks: !prevState.dropDownOpenDecks,
-    }));
-  }
-
-  toggleListLangs = () => {
-    this.setState(prevState => ({
-      dropDownOpenLangs: !prevState.dropDownOpenLangs,
-    }));
-  }
-
-  toggleSelectedDecks = (event) => {
-    console.log('event', event.target);
-    const name = event.target.getAttribute('name'); // 'HOME'
-    const id = event.target.getAttribute('id'); // 'HOME'
-
-    this.setState({
-      selectedDeck: name,
-      deck_id: id,
-    }, console.log('deck_id', this.state.deck_id));
-  }
-
-  toggleSelectedLangs = (event) => {
-    console.log('event', event.target);
-    const name = event.target.getAttribute('name'); // 'HOME'
-
-    this.setState({
-      selectedLang: name,
-    });
-  }
-
   toggleEdit = () => {
-    this.setState({ isEditing: !this.state.isEditing });
-  }
-
-  toggleAddCard = () => {
-
+    const { isEditing } = this.state;
+    this.setState({ isEditing: !isEditing });
   }
 
   onCardSave = (event) => {
     event.preventDefault();
-    const { id } = this.props.card;
+    const { card } = this.props;
+    const { id } = card;
     const {
+      // disabling eslint here because deck_id is expected server-side
+      // eslint-disable-next-line
       title, question, answer, language, deck_id,
     } = this.state;
 
@@ -89,10 +57,7 @@ class Card extends React.Component {
     const token = localStorage.getItem('id_token');
     const headers = { Authorization: `Bearer ${token}` };
     axios.put(`${process.env.REACT_APP_URL}/api/cards/${id}`, body, { headers })
-      .then((response) => {
-        console.log('===add card res', response);
-        //       deckCards.forEach((x) => {
-        //         x.deck_id = response.data;
+      .then(() => {
         window.location.reload();
       })
       .catch(err => console.log(err.message));
@@ -113,11 +78,11 @@ class Card extends React.Component {
 
   editCard = () => {
     const {
-      title, tags, question, answer, dropDownOpenDecks, dropDownOpenLangs, languages, selectedLang, selectedDeck, deckNames,
+      title, question, answer,
     } = this.state;
     const { toggleEdit } = this;
 
-    const { state } = this;
+    const { card } = this.props;
     return (
       <EditContainer>
         <CardInfo>
@@ -127,13 +92,15 @@ class Card extends React.Component {
             <Cancel type="button" onClick={toggleEdit}>x</Cancel>
           </Header>
 
-          <DescriptionLine> <p>Title</p> </DescriptionLine>
+          <DescriptionLine>
+            <p>Title</p>
+          </DescriptionLine>
           <TopRow>
-            <input type="text" value={state.title} name="title" onChange={this.handleChange} placeholder="Title for your new card" required />
+            <input type="text" value={title} name="title" onChange={this.handleChange} placeholder="Title for your new card" required />
 
           </TopRow>
           <DescriptionLine>
-            {/*<Description> Deck </Description>*/} <Description>Language </Description>
+            <Description>Language </Description>
           </DescriptionLine>
           <DropdownLine>
             <Dropdown name="language" onChange={this.handleChange}>
@@ -147,15 +114,15 @@ class Card extends React.Component {
           <DescriptionLine>
             <Description>Question </Description>
           </DescriptionLine>
-          <TextArea type="text" value={state.question} name="question" onChange={this.handleChange} placeholder="Question to display on this new card" required />
+          <TextArea type="text" value={question} name="question" onChange={this.handleChange} placeholder="Question to display on this new card" required />
 
           <DescriptionLine>
             <Description>Answer </Description>
           </DescriptionLine>
-          <TextArea type="text" value={state.answer} name="answer" onChange={this.handleChange} placeholder="Answer to this card's question" required />
+          <TextArea type="text" value={answer} name="answer" onChange={this.handleChange} placeholder="Answer to this card's question" required />
           <DropdownLine>
             <Save type="submit" onClick={this.onCardSave}>Save Edits</Save>
-            <DeleteCard onClick={() => this.handleDeleteCard(this.props.card.id)}>Delete Card</DeleteCard>
+            <DeleteCard onClick={() => this.handleDeleteCard(card.id)}>Delete Card</DeleteCard>
           </DropdownLine>
         </CardInfo>
       </EditContainer>
@@ -167,10 +134,8 @@ class Card extends React.Component {
     const {
       qContentType, aContentType, qFilteredContent, aFilteredContent,
     } = card;
-    // const { tags } = card;
     const tags = ['js', 'css', 'plaintext'];
     const { isEditing } = this.state;
-    // console.log('card', card);
     return (
 
       isEditing
@@ -381,67 +346,7 @@ i {
 }
 `;
 
-const EditCard = styled.form`
-// color: white;
-// padding: 10px;
-// margin: 10px;
-// border: 1px solid ${props => props.theme.dark.sidebar};
-// background: ${props => props.theme.dark.sidebar};
-`;
-
-const HeaderContainer = styled.div`
-// display: flex;
-// justify-content:space-between;
-// align-items: center;
-// width: 100%;
-// margin-bottom: 5px;
-`;
-
-const Instructions = styled.h3`
-// padding: 0px;
-// margin: 0px;
-`;
-
-const SaveButton = styled.button`
-// ${props => props.theme.dark.buttons.base}
-// &:hover {
-//   background: ${props => props.theme.dark.logo};
-//   cursor: pointer;
-// }
-`;
-
-const DDWrapper = styled.div`
-// color: white;
-`;
-
-const DDTitleBox = styled.div`
-// border: 1px solid gray;
-// padding: 4%;
-// display: flex;
-// justify-content: space-between;
-// margin-bottom: 10px;
-`;
-
-const DDlist = styled.ul`
-// border: 1px solid gray;
-// padding: 4%;
-// display: -webkit-box;
-// display: -webkit-flex;
-// display: -ms-flexbox;
-// width: 274px;
-// margin: -10px 0 10px 0;
-// margin-bottom: 10px;
-// list-style-type: none;
-// flex-direction: column;
-`;
-
-
-
-//////////////////////
-//from CardInputs.js
-
 const EditContainer = styled.div`
-
 /* box-shadow: 2px 2px 10px 0px black; */
 /* border-radius: 20px; */
 width: 100%;
@@ -451,15 +356,13 @@ max-width: 415px;
 /* margin: 2%; */
 border: 1px solid ${props => props.theme.dark.main};
 background: ${props => props.theme.dark.cardBackground};
-
-
   width: 100%;
   max-width: 415px;
   margin: 10px;
   h2 {
     font-weight: bold;
   }
-`
+`;
 
 const Header = styled.div`
   display: flex;
@@ -469,7 +372,7 @@ const Header = styled.div`
   width: 100%;
   margin-bottom: 12px;
   font-size: 18px;
-`
+`;
 
 const Cancel = styled.button`
   border: none;
@@ -491,21 +394,19 @@ const DescriptionLine = styled.div`
   justify-content:space-between;
   font-size: 18px;
   padding-bottom: 2px;
-`
+`;
 
 const DropdownLine = styled.div`
   display:flex;
   justify-content:space-between;
   padding-bottom: 2px;
   font-size: 18px;
-`
+`;
 
 const Caption = styled.p`
   font-size: 14px;
   color: lightgrey;
-`
-
-
+`;
 
 const TopRow = styled.div`
   display: flex;
@@ -544,9 +445,7 @@ const CardInfo = styled.div`
 const Description = styled.p`
   font-size: 18px;
   padding-right: 10px;
-`
-
-
+`;
 
 const Dropdown = styled.select`
   border-radius: 3px;
@@ -561,13 +460,13 @@ const DropdownOption = styled.option`
   /* background: darkgrey; */
   background: ${props => props.theme.dark.main};
   color: white;
-`
+`;
 
 const TextArea = styled.textarea`
     height: 75px;
     padding: 15px;
     resize: vertical;
-`
+`;
 
 const Save = styled.button`
     width: 40%;
@@ -578,7 +477,7 @@ const Save = styled.button`
       cursor: pointer;
     }
     font-size: 16px;
-`
+`;
 
 const DeleteCard = styled(Save)`
     background: ${props => props.theme.dark.buttons.negative};
@@ -586,8 +485,7 @@ const DeleteCard = styled(Save)`
     color: ${props => props.theme.dark.main};
     background: #F7979C;
   }
-
-`
+`;
 
 Card.propTypes = {
   card: PropTypes.instanceOf(Object).isRequired,
