@@ -25,19 +25,6 @@ class ImportDeck extends Component {
 
 
     this.retrieveDeck();
-    //   const { decks, history } = this.props;
-
-    //   let match = false;
-    //   for (let i = 0; i < decks.length; i++) {
-    //     if (decks[i].id === Number(selectedDeckID)) {
-    //       console.log('match');
-    //       match = decks[i];
-    //     }
-    //   }
-
-    //   if (!match) history.push('/dashboard/decks');
-
-    //   this.setState({ deck: match });
   }
 
   retrieveDeck = () => {
@@ -59,7 +46,7 @@ class ImportDeck extends Component {
         })
         .catch(error => (
           this.setState({
-            errorMessage: error,
+            deck: false
           })
         ));
     }
@@ -138,7 +125,7 @@ class ImportDeck extends Component {
   render() {
     const { today, decks } = this.props;
     const { deck } = this.state;
-    return (
+    if(deck) return (
       <DeckViewContainer>
         <Header>
           {/* <CardListTools addNewCard={this.handleAddCard} /> */}
@@ -167,7 +154,12 @@ class ImportDeck extends Component {
 
         </CardsContainer>
       </DeckViewContainer>
-    );
+    )
+    else return (
+      <DeckViewContainer>
+        <Header> <Instructions> <h2>This Deck is not shareable </h2></Instructions></Header>
+      </DeckViewContainer>
+    )
   }
 }
 
@@ -177,7 +169,7 @@ export default withRouter(ImportDeck);
 
 const DeckViewContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 90%;
   background: ${props => props.theme.dark.bodyBackground};
   margin-left: 100px;
   overflow: auto;
@@ -187,6 +179,12 @@ const DeckViewContainer = styled.div`
     padding: 15px 15px 0px 15px ;
   }
 
+  @media (max-width: 500px) {
+  margin-left: 0;
+  margin-top: 65px;
+  padding-top: 15px;
+  padding-bottom: 90px;
+}
 
 `;
 
