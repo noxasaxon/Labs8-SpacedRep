@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import VisitorHeader from './VisitorHeader';
 
-const UserHeader = ({ auth }, props) => {
+const UserHeader = ({ auth, auth: { isAuthenticated } }, props) => {
   function logout() {
     auth.logout();
   }
 
-  const { isAuthenticated } = auth;
   return (
     !isAuthenticated()
       ? (
