@@ -2,11 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 
-const Welcome = (props) => {
-
+const Welcome = ({ history }) => {
   const handleWelcomeClick = () => {
-    const { history } = props;
-    history.push('/dashboard/decks')
+    history.push('/dashboard/decks');
   };
 
 

@@ -130,21 +130,21 @@ class Card extends React.Component {
   }
 
   render() {
-    const { card, deckName, disableEdit } = this.props;
     const {
-      qContentType, aContentType, qFilteredContent, aFilteredContent,
-    } = card;
+      card: {
+        qContentType, aContentType, qFilteredContent, aFilteredContent, title, language,
+      }, deckName, disableEdit,
+    } = this.props;
     const tags = ['js', 'css', 'plaintext'];
     const { isEditing } = this.state;
     return (
-
       isEditing
         ? this.editCard()
         : (
           <CardContainer>
             <CardTop>
               <Title>
-                {card.title}
+                {title}
               </Title>
               <Body>
                 <BodyGroup>
@@ -155,7 +155,7 @@ class Card extends React.Component {
                       return <Text key={`${i + qContentType[i]}`}>{content}</Text>;
                     }
                     return (
-                      <Highlight key={`${i + qContentType[i]}`} language={card.language}>
+                      <Highlight key={`${i + qContentType[i]}`} language={language}>
                         {content}
                       </Highlight>
                     );
@@ -168,7 +168,7 @@ class Card extends React.Component {
                       return <Text spacing key={`${i + qContentType[i]}`}>{content}</Text>;
                     }
                     return (
-                      <Highlight key={`${i + qContentType[i]}`} language={card.language}>
+                      <Highlight key={`${i + qContentType[i]}`} language={language}>
                         {content}
                       </Highlight>
                     );
@@ -180,7 +180,7 @@ class Card extends React.Component {
                   <Item pb><Label>Language: </Label></Item>
                   <Item>
                     <Tag>
-                      {card.language ? card.language : 'none'}
+                      {language || 'none'}
                     </Tag>
                   </Item>
                   <Item pb><Label>Tags: </Label></Item>
