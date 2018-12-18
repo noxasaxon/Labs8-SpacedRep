@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Sidebar from './Sidebar';
-// import '../App.css';
 
 class Wrapper extends React.Component {
   /**
@@ -10,19 +9,20 @@ class Wrapper extends React.Component {
    * user's data and pass it to the relevant components.
    */
   componentDidMount() {
-    const { auth, handleData, handleProfile } = this.props;
-    if (auth.isAuthenticated()) {
-      handleProfile().then(profile => handleData());
-      // handleData();
+    const { auth: { isAuthenticated }, handleData, handleProfile } = this.props;
+    if (isAuthenticated()) {
+      handleProfile()
+        .then(() => handleData())
+        .catch(error => console.log(error));
     }
   }
 
   render() {
-    const { children, auth } = this.props;
+    const { children, auth: { isAuthenticated } } = this.props;
     return (
       <React.Fragment>
         {/* If the user is authenticated, render: */}
-        {auth.isAuthenticated() ? (
+        {isAuthenticated() ? (
           <BodyContainer>
             <Sidebar />
             {children}
@@ -53,15 +53,15 @@ Wrapper.propTypes = {
 // styles
 
 const BodyContainer = styled.div`
-  max-width: 1500px;
-  height: 100%;
-  margin-top: 55px;
-  display: flex;
-  
+max-width: 1500px;
+height: 100%;
+margin-top: 55px;
+display: flex;
 
-  @media (max-width: 900px) {
-  }
 
-  @media (max-width: 700px) {
-  }
+@media (max-width: 900px) {
+}
+
+@media (max-width: 700px) {
+}
 `;
