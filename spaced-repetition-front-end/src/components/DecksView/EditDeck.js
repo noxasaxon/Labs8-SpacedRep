@@ -21,26 +21,22 @@ class EditDeck extends React.Component {
   }
 
   componentDidMount() {
-    /* cannot destructure public - it is a reserved word in strict mode
-    we should consider holding public value in variable with different naming convention
-    (e.g. isPublic)
-    */
-    const { deck, deck: { name, tags, cards } } = this.props;
+    const { deck: { name, tags, public: isPublic, cards } } = this.props;
     this.setState({
       name,
-      // eslint-disable-next-line
-      public: deck.public,
+      public: isPublic,
       tags,
       cards,
     });
   }
 
-  handleChange = ({ e: { target, preventDefault } }) => {
+  handleChange = (e) => {
+    const { target } = e;
     let val;
     if (target.type === 'checkbox') {
       val = target.checked;
     } else {
-      preventDefault();
+      e.preventDefault();
       val = target.value;
     }
     const { name } = target;
@@ -58,13 +54,13 @@ class EditDeck extends React.Component {
     });
   }
 
-  editDeck = ({ e: { preventDefault } }) => {
-    preventDefault();
+  editDeck = (e) => {
+    e.preventDefault();
     const { deck, toggleEditModeToFalse } = this.props;
-    const { deckfromState, deckfromState: { name, tags } } = this.state;
+    const { name, tags, public: isPublic } = this.state;
     const newDeck = {
       name,
-      public: deckfromState.public,
+      public: isPublic,
       tags,
     };
     const token = localStorage.getItem('id_token');

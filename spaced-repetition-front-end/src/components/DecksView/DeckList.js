@@ -30,8 +30,8 @@ class DeckList extends React.Component {
     }));
   };
 
-  goToCheckout = ({ e: { preventDefault } }) => {
-    preventDefault();
+  goToCheckout = (e) => {
+    e.preventDefault();
     const { history } = this.props;
     history.push('/dashboard/profile');
   };

@@ -16,7 +16,7 @@ class DeckView extends Component {
   };
 
   componentDidMount = () => {
-    const { props: { match: { params: { deckId } } } } = this.props;
+    const { match: { params: { deckId } } } = this.props;
     const selectedDeckID = deckId;
     const { decks, history } = this.props;
     let match = false;

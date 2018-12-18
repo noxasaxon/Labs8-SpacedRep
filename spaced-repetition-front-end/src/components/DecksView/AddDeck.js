@@ -24,12 +24,13 @@ class AddDeck extends React.Component {
     };
   }
 
-  handleChange = ({ e: { preventDefault, target } }) => {
+  handleChange = (e) => {
+    const { target } = e;
     let val;
     if (target.type === 'checkbox') {
       val = target.checked;
     } else {
-      preventDefault();
+      e.preventDefault();
       val = target.value;
     }
     const { name } = target;
@@ -49,7 +50,9 @@ class AddDeck extends React.Component {
 
   addDeck = (e) => {
     e.preventDefault();
-    const { deck, deck: { name, tags, cards } } = this.state;
+    const {
+      name, tags, public: isPublic, cards,
+    } = this.state;
     const { history } = this.props;
     const deckCards = [...cards];
     const validatedCards = [];
@@ -63,7 +66,7 @@ class AddDeck extends React.Component {
     if (validatedCards.length > 0) {
       const newDeck = {
         name,
-        public: deck.public,
+        public: isPublic,
         tags,
       };
 
@@ -152,10 +155,10 @@ class AddDeck extends React.Component {
             <input type="checkbox" name="public" onChange={this.handleChange} />
           </Public>
         </DeckForm>
-        {cards.map(x => (
+        {cards.map((x, i) => (
           <CardInputs
-            i={x.id}
-            key={x.id}
+            i={i}
+            key={i}
             handleCardChange={this.handleCardChange}
             removeCard={this.removeCard}
           />

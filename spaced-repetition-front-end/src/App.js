@@ -105,7 +105,7 @@ class App extends Component {
         const decks = response.data;
         decks.forEach((deck) => {
           let deckDueDate = 0;
-          deck.cards.forEach(({ card: { dueDate } }) => {
+          deck.cards.forEach(({ dueDate }) => {
             if (deckDueDate) {
               if (deckDueDate > dueDate) {
                 deckDueDate = dueDate;

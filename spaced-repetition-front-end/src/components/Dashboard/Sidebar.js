@@ -11,7 +11,7 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    const { props: { location: { pathname } } } = this.props;
+    const { location: { pathname } } = this.props;
     return (
       <React.Fragment>
         <Container>

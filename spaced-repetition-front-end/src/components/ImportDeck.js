@@ -58,16 +58,20 @@ class ImportDeck extends Component {
   }
 
   handleImport = () => {
-    const { deck } = this.state;
+    const {
+      deck: {
+        name, public: isPublic, tags, cards,
+      },
+    } = this.state;
     const { history } = this.props;
     const newDeck = {
-      name: deck.name,
-      public: deck.public,
-      tags: deck.tags,
+      name,
+      public: isPublic,
+      tags,
     };
-    const deckCards = [...deck.cards];
+    const deckCards = [...cards];
 
-    if (deck.cards.length < 1) {
+    if (cards.length < 1) {
       return;
     }
     // remove unnecessary keys
