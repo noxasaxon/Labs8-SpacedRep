@@ -41,11 +41,9 @@ class CheckoutForm extends Component {
     e.preventDefault();
     const { stripe, profile, handleUpdateTier } = this.props;
     const { token } = await stripe.createToken();
-
     if (!token) {
       return;
     }
-
     const purchaseObj = {
       purchase: {
         token,
@@ -66,7 +64,6 @@ class CheckoutForm extends Component {
   cancelSubscription = async (e) => {
     e.preventDefault();
     const { profile, handleUpdateTier } = this.props;
-
     await axios
       .put(`${process.env.REACT_APP_URL}/api/stripe`, { sub: profile.sub }, { headers })
       .then((response) => {
@@ -100,7 +97,6 @@ class CheckoutForm extends Component {
       isPurchaseCompleteModalOpen,
       isCancelCompleteModalOpen,
     } = this.state;
-
     if (profile && profile.tier === 'paid') {
       return (
         <PaymentFormContainer>
@@ -118,7 +114,6 @@ class CheckoutForm extends Component {
               </KeepSubscription>
             </ButtonContainer>
           </CancelModal>
-
           <Cancel onClick={this.openCancelModal} type="submit">
             Cancel subscription
           </Cancel>
@@ -149,115 +144,115 @@ class CheckoutForm extends Component {
 export default injectStripe(CheckoutForm);
 
 const PaymentFormContainer = styled.div`
-  display: flex;
-  width: 50%;
-  flex-direction: column;
+display: flex;
+width: 50%;
+flex-direction: column;
 `;
 
 const PurchaseModal = styled(Modal)`
-  display: flex;
-  z-index: 100;
-  justify-content: center;
-  align-items: center;
-  transform: translate(130%, 18%);
-  width: 350px;
-  height: 500px;
-  border: 1px solid black;
-  background: ${props => props.theme.dark.cardBackground};
-  &:focus {
-    outline: none;
-  }
-  @media (max-width: 500px) {
-    transform: translate(7%, 18%);
-  }
+display: flex;
+z-index: 100;
+justify-content: center;
+align-items: center;
+transform: translate(130%, 18%);
+width: 350px;
+height: 500px;
+border: 1px solid black;
+background: ${props => props.theme.dark.cardBackground};
+&:focus {
+  outline: none;
+}
+@media (max-width: 500px) {
+  transform: translate(7%, 18%);
+}
 `;
 
 const CancelModal = styled(Modal)`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  transform: translate(130%, 60%);
-  padding: 25px 0 25px 0;
-  width: 350px;
-  height: 300px;
-  border: 1px solid black;
-  color: white;
-  background: ${props => props.theme.dark.cardBackground};
-  border-radius: 4px;
-  &:focus {
-    outline: none;
-  }
-  @media (max-width: 500px) {
-    transform: translate(7%, 60%);
-  }
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+transform: translate(130%, 60%);
+padding: 25px 0 25px 0;
+width: 350px;
+height: 300px;
+border: 1px solid black;
+color: white;
+background: ${props => props.theme.dark.cardBackground};
+border-radius: 4px;
+&:focus {
+  outline: none;
+}
+@media (max-width: 500px) {
+  transform: translate(7%, 60%);
+}
 `;
 
 const CancelCompleteModal = styled(Modal)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transform: translate(130%, 60%);
-  padding: 25px 0 25px 0;
-  width: 350px;
-  height: 300px;
-  border: 1px solid black;
-  color: white;
-  background: ${props => props.theme.dark.cardBackground};
-  border-radius: 4px;
-  &:focus {
-    outline: none;
-  }
-  @media (max-width: 500px) {
-    transform: translate(7%, 60%);
-  }
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+transform: translate(130%, 60%);
+padding: 25px 0 25px 0;
+width: 350px;
+height: 300px;
+border: 1px solid black;
+color: white;
+background: ${props => props.theme.dark.cardBackground};
+border-radius: 4px;
+&:focus {
+  outline: none;
+}
+@media (max-width: 500px) {
+  transform: translate(7%, 60%);
+}
 `;
 
 const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+display: flex;
+flex-direction: column;
 `;
 
 const CancelText = styled.p`
-  width: 300px;
-  font-size: 25px;
-  text-align: center;
+width: 300px;
+font-size: 25px;
+text-align: center;
 `;
 
 const Subscribe = styled.button`
-  width: 300px;
-  ${props => props.theme.dark.buttons.base}
-  &:hover {
-    background: ${props => props.theme.dark.logo};
-    cursor: pointer;
-  }
+width: 300px;
+${props => props.theme.dark.buttons.base}
+&:hover {
+  background: ${props => props.theme.dark.logo};
+  cursor: pointer;
+}
 `;
 
 const Cancel = styled.button`
-  width: 300px;
-  ${props => props.theme.dark.buttons.base}
-  background: ${props => props.theme.dark.buttons.negative};
-  &:hover {
-    background: #ed494e;
-  }
+width: 300px;
+${props => props.theme.dark.buttons.base}
+background: ${props => props.theme.dark.buttons.negative};
+&:hover {
+  background: #ed494e;
+}
 `;
 
 const CancelSubscription = styled.button`
-  width: 300px;
-  ${props => props.theme.dark.buttons.base}
-  margin-bottom: 10px;
-  &:hover {
-    background: ${props => props.theme.dark.logo};
-    cursor: pointer;
-  }
+width: 300px;
+${props => props.theme.dark.buttons.base}
+margin-bottom: 10px;
+&:hover {
+  background: ${props => props.theme.dark.logo};
+  cursor: pointer;
+}
 `;
 
 const KeepSubscription = styled.button`
-  width: 300px;
-  ${props => props.theme.dark.buttons.base}
-  background: ${props => props.theme.dark.buttons.negative};
-  &:hover {
-    background: #ed494e;
-  }
+width: 300px;
+${props => props.theme.dark.buttons.base}
+background: ${props => props.theme.dark.buttons.negative};
+&:hover {
+  background: #ed494e;
+}
 `;
