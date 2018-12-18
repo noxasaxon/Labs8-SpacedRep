@@ -27,8 +27,7 @@ class VisitorHeader extends Component {
 
   /* Conditionally renders "Sign in" or "Sign out" depending on authentication status. */
   render() {
-    const { auth } = this.props;
-    const { isAuthenticated } = auth;
+    const { auth: { isAuthenticated } } = this.props;
     const { toggle } = this.state;
     return (
       <Container id="Container" isLoggedIn={isAuthenticated()}>
